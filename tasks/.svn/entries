@@ -1,0 +1,35 @@
+10
+
+dir
+0
+https://spider.caspur.it/svn/owm/trunk/vendor/plugins/acts_as_markable_on_change/tasks
+https://spider.caspur.it/svn/owm
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+63b4dea7-5909-4c91-a04e-37df1ad43543
+
+acts_as_markable_on_change_tasks.rake
+file
+
+
+
+add
+
