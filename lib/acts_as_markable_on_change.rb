@@ -43,7 +43,7 @@ module MarkableOnChange
             send("#{attr}").any?{|instance| instance.has_changed_from? self.changed_at }
           elsif one.include?(attr.to_sym)
             send("#{attr}").has_changed_from? self.changed_at
-          else
+          elsif self.has_attribute? attr
             send("#{attr}_changed?")
           end
         end
@@ -80,11 +80,15 @@ module MarkableOnChange
       klass = self.class
       belongs = klass.reflect_on_all_associations(:belongs_to).collect{|assoc| assoc.name}
 
-      to_notify = klass.const_get('CRITICAL_ATTRIBUTES_ON_DESTROY')
-      if to_notify and belongs.include?(to_notify)
-        to_notify.each do |attr|
-          send("#{attr}").mark!(true)
+      begin
+        to_notify = klass.const_get('CRITICAL_ATTRIBUTES_ON_DESTROY')
+        if to_notify and belongs.include?(to_notify)
+          to_notify.each do |attr|
+            send("#{attr}").mark!(true)
+          end
         end
+      rescue
+        raise "acts_as_markable_on_change not defined for #{klass} or for its :notify_on_destroy attributes"
       end
     end
 
