@@ -6,7 +6,7 @@ module MarkableOnChange
 
   module ClassMethods
     def acts_as_markable_on_change(params = nil)
-      has_one :mark, :as => :markable
+      has_one :mark, :as => :markable, :dependent => :destroy
 
       const_set('CRITICAL_ATTRIBUTES_ON_SAVE', [params[:watch_for]].flatten) if params[:watch_for]
       const_set('CRITICAL_ATTRIBUTES_ON_DESTROY', [params[:notify_on_destroy]].flatten) if params[:notify_on_destroy]
